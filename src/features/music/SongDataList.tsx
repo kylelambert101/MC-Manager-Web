@@ -1,5 +1,5 @@
 /* eslint-disable react/require-default-props */
-import * as React from 'react';
+import * as React from "react";
 import {
   IColumn,
   DetailsList,
@@ -8,29 +8,25 @@ import {
   IDetailsColumnRenderTooltipProps,
   ConstrainMode,
   DetailsListLayoutMode,
-  IDetailsListStyles,
   IDetailsRowStyles,
   IDetailsListProps,
   DetailsRow,
-} from 'office-ui-fabric-react/lib/DetailsList';
-import { IRenderFunction } from 'office-ui-fabric-react/lib/Utilities';
-import { Sticky, StickyPositionType } from 'office-ui-fabric-react/lib/Sticky';
-import { TooltipHost } from 'office-ui-fabric-react/lib/Tooltip';
-import { getDummySongData } from '../../utils/CSVUtilities';
-import { SongData, ViewOptions } from './MusicTypes';
-import { getColumnsFromObjectArray } from '../../utils/DetailsListUtilities';
-import ActiveCheckbox from './ActiveCheckbox';
-import songDataFields from '../../constants/songDataFields.json';
-import { TypedProperty } from '../../utils/ObjectUtilities';
-import { SortField } from '../../utils/ArrayUtilities';
+} from "office-ui-fabric-react/lib/DetailsList";
+import { IRenderFunction } from "office-ui-fabric-react/lib/Utilities";
+import { Sticky, StickyPositionType } from "office-ui-fabric-react/lib/Sticky";
+import { TooltipHost } from "office-ui-fabric-react/lib/Tooltip";
+import { getDummySongData } from "../../utils/CSVUtilities";
+import { SongData, ViewOptions } from "./MusicTypes";
+import { getColumnsFromObjectArray } from "../../utils/DetailsListUtilities";
+import ActiveCheckbox from "./ActiveCheckbox";
+import songDataFields from "../../constants/songDataFields.json";
+import { TypedProperty } from "../../utils/ObjectUtilities";
+import { SortField } from "../../utils/ArrayUtilities";
 
 interface ISongDataListProps {
   songs: SongData[];
   onSongChange: (newSong: SongData) => void;
-  onColumnClick?: (
-    ev?: React.MouseEvent<HTMLElement>,
-    column?: IColumn
-  ) => void;
+  onColumnClick?: (ev?: React.MouseEvent<HTMLElement>, column?: IColumn) => void;
   sortColumns?: SortField[];
   viewOptions: ViewOptions;
 }
@@ -51,7 +47,7 @@ const getFieldAdjustedComponent = (
   switch (field.name) {
     case songDataFields.ID.name:
       itemComponent = (
-        <span style={{ fontFamily: 'monospace', color: 'grey' }}>
+        <span style={{ fontFamily: "monospace", color: "grey" }}>
           <>{`${fieldValue}`}</>
         </span>
       );
@@ -76,13 +72,7 @@ const getFieldAdjustedComponent = (
  * SongDataList - An DetailsList wrapper to represent music_collection csv data
  */
 const SongDataList = (props: ISongDataListProps): React.ReactElement => {
-  const {
-    songs,
-    onSongChange,
-    onColumnClick,
-    sortColumns,
-    viewOptions,
-  } = props;
+  const { songs, onSongChange, onColumnClick, sortColumns, viewOptions } = props;
 
   const items = songs;
 
@@ -111,14 +101,12 @@ const SongDataList = (props: ISongDataListProps): React.ReactElement => {
     // Adjust how columns render based on their data
     return rawColumns
       .map((column) => {
-        const sortColumn = sortColumns?.find(
-          (c) => c.fieldName === column.fieldName
-        );
+        const sortColumn = sortColumns?.find((c) => c.fieldName === column.fieldName);
         let isSorted;
         let isSortedDescending;
-        if (typeof sortColumn !== 'undefined') {
+        if (typeof sortColumn !== "undefined") {
           isSorted = true;
-          isSortedDescending = sortColumn.direction === 'descending';
+          isSortedDescending = sortColumn.direction === "descending";
         } else {
           isSorted = undefined;
           isSortedDescending = undefined;
@@ -140,10 +128,7 @@ const SongDataList = (props: ISongDataListProps): React.ReactElement => {
           isSortedDescending,
         };
       })
-      .filter(
-        (column) =>
-          !viewOptions.hiddenColumns.some((hc) => hc.name === column.fieldName)
-      );
+      .filter((column) => !viewOptions.hiddenColumns.some((hc) => hc.name === column.fieldName));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [items.length, sortColumns, viewOptions]);
 
@@ -171,7 +156,7 @@ const SongDataList = (props: ISongDataListProps): React.ReactElement => {
     );
   };
 
-  const onRenderRow: IDetailsListProps['onRenderRow'] = (rowProps) => {
+  const onRenderRow: IDetailsListProps["onRenderRow"] = (rowProps) => {
     const customStyles: Partial<IDetailsRowStyles> = {};
     if (rowProps) {
       const { item, itemIndex } = rowProps;
@@ -179,7 +164,7 @@ const SongDataList = (props: ISongDataListProps): React.ReactElement => {
       // Fade inactive rows to light grey
       if (viewOptions.fadeInactive) {
         if (!(item as SongData).active) {
-          customStyles.root = { color: 'lightgrey' };
+          customStyles.root = { color: "lightgrey" };
         }
       }
 

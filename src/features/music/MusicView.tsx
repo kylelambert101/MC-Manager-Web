@@ -1,34 +1,23 @@
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import {
-  Fabric,
-  IColumn,
-  ProgressIndicator,
-  ScrollablePane,
-} from 'office-ui-fabric-react';
-import styles from './MusicView.css';
-import HeaderCommandBar from './HeaderCommandBar';
-import SongDataList from './SongDataList';
-import {
-  isLoadingSelector,
-  saveFilePathSelector,
-  songsSelector,
-  updateSong,
-  toggleAndApplySortColumn,
-  sortColumnsSelector,
-  viewOptionsSelector,
-} from './musicSlice';
-import { SongData } from './MusicTypes';
+import React from "react";
+import { Fabric, IColumn, ProgressIndicator, ScrollablePane } from "office-ui-fabric-react";
+import styles from "./MusicView.css";
+import HeaderCommandBar from "./HeaderCommandBar";
+import SongDataList from "./SongDataList";
+import { SongData } from "./MusicTypes";
+import { useMusicData } from "../../contexts/useMusicData";
 
 const MusicView = () => {
-  const isLoading = useSelector(isLoadingSelector);
-  const filePath = useSelector(saveFilePathSelector);
-  const songs = useSelector(songsSelector);
-  const sortColumns = useSelector(sortColumnsSelector);
-  const viewOptions = useSelector(viewOptionsSelector);
-  const dispatch = useDispatch();
+  const {
+    isLoading,
+    saveFilePath,
+    songs,
+    sortColumns,
+    viewOptions,
+    updateSong,
+    toggleAndApplySortColumn,
+  } = useMusicData();
 
-  const windowTitle = `MC-Manager${filePath === '' ? '' : ` - ${filePath}`}`;
+  const windowTitle = `MC-Manager${saveFilePath === "" ? "" : ` - ${saveFilePath}`}`;
 
   return (
     <Fabric className={styles.wrapper}>
@@ -44,17 +33,11 @@ const MusicView = () => {
             <SongDataList
               songs={songs}
               onSongChange={(newSong: SongData) => {
-                dispatch(updateSong(newSong));
+                updateSong(newSong);
               }}
-              onColumnClick={(
-                ev?: React.MouseEvent<HTMLElement>,
-                column?: IColumn
-              ) => {
-                if (
-                  typeof column !== 'undefined' &&
-                  typeof column.fieldName !== 'undefined'
-                ) {
-                  dispatch(toggleAndApplySortColumn(column.fieldName));
+              onColumnClick={(ev?: React.MouseEvent<HTMLElement>, column?: IColumn) => {
+                if (typeof column !== "undefined" && typeof column.fieldName !== "undefined") {
+                  toggleAndApplySortColumn(column.fieldName);
                 }
               }}
               sortColumns={sortColumns}
