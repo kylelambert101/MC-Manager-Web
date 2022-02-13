@@ -1,0 +1,92 @@
+{
+  "ACTIVE": {
+    "csvHeaderName": "Active",
+    "dataType": "boolean",
+    "displayName": "Active",
+    "name": "active"
+  },
+  "ALBUM": {
+    "csvHeaderName": "Album",
+    "dataType": "string",
+    "displayName": "Album",
+    "name": "album"
+  },
+  "ALBUM_ARTIST": {
+    "csvHeaderName": "Album_Artist",
+    "dataType": "string",
+    "displayName": "Album Artist",
+    "name": "album_artist"
+  },
+  "ARTIST": {
+    "csvHeaderName": "Artist",
+    "dataType": "string",
+    "displayName": "Artist",
+    "name": "artist"
+  },
+  "DATE": {
+    "csvHeaderName": "Date",
+    "dataType": "string",
+    "displayName": "Date",
+    "name": "date"
+  },
+  "DAY": {
+    "csvHeaderName": "Day",
+    "dataType": "string",
+    "displayName": "Day",
+    "name": "day"
+  },
+  "DURATION": {
+    "csvHeaderName": "Duration",
+    "dataType": "number",
+    "displayName": "Duration",
+    "name": "duration"
+  },
+  "FILE_EXTENSION": {
+    "csvHeaderName": "File_Extension",
+    "dataType": "string",
+    "displayName": "File Extension",
+    "name": "file_extension"
+  },
+  "ID": {
+    "csvHeaderName": "ID",
+    "dataType": "number",
+    "displayName": "ID",
+    "name": "id"
+  },
+  "NEW_FILE_NAME": {
+    "csvHeaderName": "New_File_Name",
+    "dataType": "string",
+    "displayName": "New File Name",
+    "name": "new_file_name"
+  },
+  "ORIGINAL_FILE_NAME": {
+    "csvHeaderName": "Original_File_Name",
+    "dataType": "string",
+    "displayName": "Original File Name",
+    "name": "original_file_name"
+  },
+  "ORIGINAL_FILE_PATH": {
+    "csvHeaderName": "Original_File_Path",
+    "dataType": "string",
+    "displayName": "Original File Path",
+    "name": "original_file_path"
+  },
+  "TITLE": {
+    "csvHeaderName": "Title",
+    "dataType": "string",
+    "displayName": "Title",
+    "name": "title"
+  },
+  "TRACK_NUMBER": {
+    "csvHeaderName": "Track_Number",
+    "dataType": "number",
+    "displayName": "Track Number",
+    "name": "track_number"
+  },
+  "TRACK_TOTAL": {
+    "csvHeaderName": "Track_Total",
+    "dataType": "number",
+    "displayName": "Track Total",
+    "name": "track_total"
+  }
+}
