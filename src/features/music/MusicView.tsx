@@ -1,6 +1,5 @@
 import React from "react";
 import { IColumn, ProgressIndicator, ScrollablePane } from "@fluentui/react";
-import styles from "./MusicView.css";
 import HeaderCommandBar from "./HeaderCommandBar";
 import SongDataList from "./SongDataList";
 import { SongData } from "./MusicTypes";
@@ -9,7 +8,7 @@ import { useMusicData } from "../../contexts/useMusicData";
 const MusicView = () => {
   const {
     isLoading,
-    saveFilePath,
+    // saveFilePath,
     songs,
     sortColumns,
     viewOptions,
@@ -17,14 +16,27 @@ const MusicView = () => {
     toggleAndApplySortColumn,
   } = useMusicData();
 
-  const windowTitle = `MC-Manager${saveFilePath === "" ? "" : ` - ${saveFilePath}`}`;
+  // const windowTitle = `MC-Manager${saveFilePath === "" ? "" : ` - ${saveFilePath}`}`;
 
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.header}>
+    /*
+     * Configuration for DetailsList with header came from from:
+     * https://stackoverflow.com/a/53527580/6509903
+     */
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        width: "100%",
+        position: "absolute",
+        top: 0,
+        bottom: 0,
+      }}
+    >
+      <div style={{ flex: 0 }}>
         <HeaderCommandBar />
       </div>
-      <div className={styles.main}>
+      <div style={{ flex: 1, position: "relative" }}>
         <ScrollablePane>
           {isLoading ? (
             <ProgressIndicator barHeight={4} />

@@ -160,7 +160,7 @@ const SongDataList = (props: ISongDataListProps): React.ReactElement => {
   const onRenderRow: IDetailsListProps["onRenderRow"] = (rowProps) => {
     const customStyles: Partial<IDetailsRowStyles> = {};
     if (rowProps) {
-      const { item, itemIndex } = rowProps;
+      const { item } = rowProps;
 
       // Fade inactive rows to light grey
       if (viewOptions.fadeInactive) {

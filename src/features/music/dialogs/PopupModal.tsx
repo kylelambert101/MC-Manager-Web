@@ -37,7 +37,7 @@ interface Props {
 }
 
 const PopupModal = (props: Props): React.ReactElement => {
-  const { visible, setVisible, onSubmit, onCancel, title, subTitle, children } = props;
+  const { visible, setVisible, onSubmit, onCancel, title, children } = props;
 
   const handleSubmit = () => {
     setVisible(false);
