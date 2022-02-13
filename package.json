@@ -1,6 +1,6 @@
 {
-  "homepage": "http://kylelambert101.github.io/decoder",
-  "name": "decoder",
+  "homepage": "http://kylelambert101.github.io/mc-manager-web",
+  "name": "mc-manager-web",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

@@ -1,6 +1,6 @@
 {
-  "short_name": "Decoder",
-  "name": "Decoder",
+  "short_name": "mc-manager-web",
+  "name": "MC Manager",
   "icons": [
     {
       "src": "favicon.ico",
