@@ -1,5 +1,5 @@
 import React from "react";
-import { Fabric, IColumn, ProgressIndicator, ScrollablePane } from "office-ui-fabric-react";
+import { IColumn, ProgressIndicator, ScrollablePane } from "@fluentui/react";
 import styles from "./MusicView.css";
 import HeaderCommandBar from "./HeaderCommandBar";
 import SongDataList from "./SongDataList";
@@ -20,9 +20,8 @@ const MusicView = () => {
   const windowTitle = `MC-Manager${saveFilePath === "" ? "" : ` - ${saveFilePath}`}`;
 
   return (
-    <Fabric className={styles.wrapper}>
+    <div className={styles.wrapper}>
       <div className={styles.header}>
-        <div className={styles.titlebar}>{windowTitle}</div>
         <HeaderCommandBar />
       </div>
       <div className={styles.main}>
@@ -46,7 +45,7 @@ const MusicView = () => {
           )}
         </ScrollablePane>
       </div>
-    </Fabric>
+    </div>
   );
 };
 

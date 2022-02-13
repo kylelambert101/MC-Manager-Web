@@ -1,10 +1,10 @@
-import React from 'react';
-import { IColumn } from 'office-ui-fabric-react/lib/DetailsList';
-import { getUniqueValuesByField } from './ArrayUtilities';
-import { convertToTitleCase } from './StringUtilities';
-import { getProperties, TypedProperty } from './ObjectUtilities';
-import songDataFields from '../constants/songDataFields.json';
-import { SongData, SongDataColumn } from '../features/music/MusicTypes';
+import React from "react";
+import { IColumn } from "@fluentui/react";
+import { getUniqueValuesByField } from "./ArrayUtilities";
+import { convertToTitleCase } from "./StringUtilities";
+import { getProperties, TypedProperty } from "./ObjectUtilities";
+import songDataFields from "../constants/songDataFields.json";
+import { SongData, SongDataColumn } from "../features/music/MusicTypes";
 
 /**
  * Get the display name associated with this `field`
@@ -19,15 +19,13 @@ export const getDisplayName = (field: string): string => {
     return matchingSongDataField.displayName;
   }
   // By default, convert the field to titlecase and replace underscores with spaces
-  return convertToTitleCase(field.replace(/_/g, ' '));
+  return convertToTitleCase(field.replace(/_/g, " "));
 };
 
 /**
  * Get an array of IColumns that can be used for a list of objects
  */
-export const getColumnsFromObjectArray = (
-  objects: Record<string, unknown>[]
-): IColumn[] => {
+export const getColumnsFromObjectArray = (objects: Record<string, unknown>[]): IColumn[] => {
   const allFields = objects
     // Get properties of all objects
     .map((obj) => getProperties(obj))
@@ -51,10 +49,7 @@ export const getColumnsFromObjectArray = (
     const uniqueValueLengths = getUniqueValuesByField(field.name, objects).map(
       (item) => `${item}`.length
     );
-    const defaultColumnSize = Math.min(
-      500,
-      7 * Math.max(field.name.length, ...uniqueValueLengths)
-    );
+    const defaultColumnSize = Math.min(500, 7 * Math.max(field.name.length, ...uniqueValueLengths));
     return {
       key: `column_${field.name}`,
       name: displayName,

@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { Checkbox } from 'office-ui-fabric-react/lib/Checkbox';
+import * as React from "react";
+import { Checkbox } from "@fluentui/react";
 
 interface ActiveCheckboxProps {
   active: boolean;
@@ -15,7 +15,7 @@ const ActiveCheckbox = (props: ActiveCheckboxProps): React.ReactElement => {
       boxSide="end"
       styles={{
         root: {
-          marginLeft: '0.75em',
+          marginLeft: "0.75em",
         },
       }}
       onChange={() => {

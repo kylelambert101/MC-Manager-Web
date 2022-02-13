@@ -11,10 +11,11 @@ import {
   IDetailsRowStyles,
   IDetailsListProps,
   DetailsRow,
-} from "office-ui-fabric-react/lib/DetailsList";
-import { IRenderFunction } from "office-ui-fabric-react/lib/Utilities";
-import { Sticky, StickyPositionType } from "office-ui-fabric-react/lib/Sticky";
-import { TooltipHost } from "office-ui-fabric-react/lib/Tooltip";
+  IRenderFunction,
+  Sticky,
+  StickyPositionType,
+  TooltipHost,
+} from "@fluentui/react";
 import { getDummySongData } from "../../utils/CSVUtilities";
 import { SongData, ViewOptions } from "./MusicTypes";
 import { getColumnsFromObjectArray } from "../../utils/DetailsListUtilities";

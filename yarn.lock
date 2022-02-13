@@ -8099,7 +8099,7 @@ obuf@^1.0.0, obuf@^1.1.2:
   resolved "https://registry.yarnpkg.com/obuf/-/obuf-1.1.2.tgz#09bea3343d41859ebd446292d11c9d4db619084e"
   integrity sha512-PX1wu0AmAdPqOL1mWhqmlOd8kOIZQwGZw6rh7uby9fTc5lhaOWFLX3I6R1hrF9k3zUY40e6igsLGkDXK92LJNg==
 
-office-ui-fabric-react@^7.155.3, office-ui-fabric-react@^7.174.1, office-ui-fabric-react@^7.182.0:
+office-ui-fabric-react@^7.174.1, office-ui-fabric-react@^7.182.0:
   version "7.182.0"
   resolved "https://registry.yarnpkg.com/office-ui-fabric-react/-/office-ui-fabric-react-7.182.0.tgz#7b3a8a63edd934103f94600128e0e0f9ef7d318f"
   integrity sha512-mBQUO/1kOiYbfb48xVIMnJlM+1yK0qnfqLdQ3wHAsOw6iPSRJfIyROU2q0Etwyjln0GVZ2tSmUxtXkGDocmUdQ==

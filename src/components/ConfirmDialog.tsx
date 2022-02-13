@@ -1,5 +1,5 @@
 /* eslint-disable react/require-default-props */
-import * as React from 'react';
+import * as React from "react";
 import {
   DefaultButton,
   Dialog,
@@ -7,7 +7,7 @@ import {
   DialogFooter,
   PrimaryButton,
   Stack,
-} from 'office-ui-fabric-react';
+} from "@fluentui/react";
 
 interface Props {
   /**
@@ -71,8 +71,8 @@ const ConfirmDialog = (props: Props): React.ReactElement => {
 
   const dialogContentProps = {
     type: DialogType.normal,
-    title: title || 'Please Confirm',
-    closeButtonAriaLabel: 'Close',
+    title: title || "Please Confirm",
+    closeButtonAriaLabel: "Close",
     subText: message,
   };
 
@@ -85,7 +85,7 @@ const ConfirmDialog = (props: Props): React.ReactElement => {
   // Callback for the Cancel button - close the dialog and call onCancel if it exists
   const handleCancel = (): void => {
     setVisible(false);
-    if (typeof onCancel !== 'undefined') {
+    if (typeof onCancel !== "undefined") {
       onCancel();
     }
   };
@@ -97,19 +97,9 @@ const ConfirmDialog = (props: Props): React.ReactElement => {
       onDismiss={() => setVisible(false)}
     >
       <DialogFooter>
-        <Stack
-          horizontal
-          horizontalAlign="center"
-          tokens={{ childrenGap: '10px' }}
-        >
-          <PrimaryButton
-            onClick={handleConfirm}
-            text={confirmAltText || 'Confirm'}
-          />
-          <DefaultButton
-            onClick={handleCancel}
-            text={cancelAltText || 'Cancel'}
-          />
+        <Stack horizontal horizontalAlign="center" tokens={{ childrenGap: "10px" }}>
+          <PrimaryButton onClick={handleConfirm} text={confirmAltText || "Confirm"} />
+          <DefaultButton onClick={handleCancel} text={cancelAltText || "Cancel"} />
         </Stack>
       </DialogFooter>
     </Dialog>
