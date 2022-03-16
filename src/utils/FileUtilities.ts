@@ -1,4 +1,3 @@
-import fs from "fs";
 import { SongData } from "../constants/MusicTypes";
 import {
   parseSongDataFromCSVRow,
@@ -8,48 +7,8 @@ import {
   getCSVRowsFromString,
 } from "./CSVUtilities";
 
-// Default file encoding to use for read/write
-const encoding = "utf8";
-
-const getFileContents = (filePath: string): string | undefined => {
-  console.log(`Opening file: "${filePath}"`);
-
-  // detectCharacterEncoding used native module that was difficult to manage in electron
-  // const fileBuffer = fs.readFileSync(filePath);
-  // const detectedEncoding = detectCharacterEncoding(fileBuffer)?.encoding;
-  // if (detectedEncoding) {
-  //   console.log(`Detected encoding "${detectedEncoding}"`);
-  //   // If encoding detection worked
-  //   if (detectedEncoding.startsWith('ISO')) {
-  //     encoding = 'ascii';
-  //     console.log(`Remapped encoding "${detectedEncoding}" to "${encoding}"`);
-  //   } else {
-  //     encoding = detectedEncoding;
-  //   }
-  // } else {
-  //   // If encoding detection didn't work
-  //   encoding = 'utf-8';
-  //   console.log(`No encoding detected. Using default "${encoding}".`);
-  // }
-
-  let results;
-  try {
-    results = fs.readFileSync(filePath, encoding);
-  } catch (err) {
-    console.log(
-      `Tried reading file "${filePath}" with encoding "${encoding}". Resulted in error: ${
-        (err as Error).message
-      }`
-    );
-    throw err;
-  }
-  return results;
-};
-
-// eslint-disable-next-line import/prefer-default-export
-export const loadCSVFile = async (filePath: string): Promise<SongData[]> => {
-  // TODO This function freezes the page for large files - can it be extracted to a worker thread?
-  const data = getCSVRowsFromString(getFileContents(filePath) || "");
+export const parseCSVFile = async (fileContents: string): Promise<SongData[]> => {
+  const data = getCSVRowsFromString(fileContents);
 
   // First row is the header row
   const [header, ...datarows] = data;
@@ -85,11 +44,7 @@ export const saveCSVFile = (targetPath: string, songData: SongData[]): void => {
     ...songData.map((song) => convertSongDataToCSVRow(song)),
   ].join("\n");
 
-  try {
-    fs.writeFileSync(targetPath, csvData, { encoding });
-  } catch (err) {
-    console.log(`Error writing data to ${targetPath}`);
-    console.log(csvData);
-    throw err;
-  }
+  console.log(String.raw`Saving not implemented. Here's the data though ¯\_(ツ)_/¯`);
+  console.table(csvData);
+  // TODO Implement this
 };

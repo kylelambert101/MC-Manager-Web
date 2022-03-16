@@ -9,13 +9,14 @@ import songDataFields from "../constants/songDataFields.json";
 import ViewOptionsDialog from "./dialogs/ViewOptionsDialog";
 import PopupModal from "./dialogs/PopupModal";
 import { useMusicData } from "../hooks/useMusicData";
+import { useSongDataContext } from "../contexts/SongDataContext";
 
 const overflowProps: IButtonProps = { ariaLabel: "More commands" };
 
 const HeaderCommandBar = (): React.ReactElement => {
   const {
+    // songs,
     saveFilePath,
-    songs,
     sortColumns,
     viewOptions,
     cachedSongs,
@@ -26,6 +27,14 @@ const HeaderCommandBar = (): React.ReactElement => {
     addNewSongs,
     setViewOptions,
   } = useMusicData();
+  const { songs, isLoading, triggerFileLoad } = useSongDataContext();
+
+  React.useEffect(() => {
+    console.table(songs);
+  }, [songs]);
+  React.useEffect(() => {
+    console.log({ isLoading });
+  }, [isLoading]);
 
   const { addToast } = useToasts();
 
@@ -34,23 +43,7 @@ const HeaderCommandBar = (): React.ReactElement => {
   const [addSongDialogIsOpen, setAddSongDialogIsOpen] = React.useState(false);
   const [viewOptionsDialogIsOpen, setViewOptionsDialogIsOpen] = React.useState(false);
   const [testIsOpen, setTestIsOpen] = React.useState(false);
-  const [file, setFile] = React.useState<File>();
-  const inputRef = React.useRef<HTMLInputElement | null>(null);
 
-  React.useEffect(() => {
-    console.log({ file });
-  }, [file]);
-
-  const handleFileUpload = (e: React.FormEvent<HTMLInputElement>) => {
-    const { files } = e.currentTarget;
-    if (files && files.length) {
-      setFile(files[0]);
-    }
-  };
-
-  const onButtonClick = () => {
-    inputRef.current?.click();
-  };
   const dataHasChanged = React.useMemo(
     () => JSON.stringify(songs) !== JSON.stringify(cachedSongs),
     [songs, cachedSongs]
@@ -63,9 +56,7 @@ const HeaderCommandBar = (): React.ReactElement => {
       key: "upload",
       text: "Open CSV",
       iconProps: { iconName: "Database" },
-      onClick: () => {
-        onButtonClick();
-      },
+      onClick: triggerFileLoad,
     },
 
     {
@@ -212,15 +203,6 @@ const HeaderCommandBar = (): React.ReactElement => {
       >
         <span>Hello</span>
       </PopupModal>
-      <div>
-        <input
-          style={{ display: "none" }}
-          accept=".csv"
-          ref={inputRef}
-          onChange={handleFileUpload}
-          type="file"
-        />
-      </div>
     </div>
   );
 };
