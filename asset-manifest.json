@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "/MC-Manager-Web/static/js/main.b08fc8ed.chunk.js",
-    "main.js.map": "/MC-Manager-Web/static/js/main.b08fc8ed.chunk.js.map",
+    "main.js": "/MC-Manager-Web/static/js/main.630ddcdc.chunk.js",
+    "main.js.map": "/MC-Manager-Web/static/js/main.630ddcdc.chunk.js.map",
     "runtime-main.js": "/MC-Manager-Web/static/js/runtime-main.c0da3071.js",
     "runtime-main.js.map": "/MC-Manager-Web/static/js/runtime-main.c0da3071.js.map",
     "static/js/2.6dbc1d02.chunk.js": "/MC-Manager-Web/static/js/2.6dbc1d02.chunk.js",
@@ -14,6 +14,6 @@
   "entrypoints": [
     "static/js/runtime-main.c0da3071.js",
     "static/js/2.6dbc1d02.chunk.js",
-    "static/js/main.b08fc8ed.chunk.js"
+    "static/js/main.630ddcdc.chunk.js"
   ]
 }
