@@ -155,6 +155,7 @@ const HeaderCommandBar = (): React.ReactElement => {
 
   return (
     <div>
+      <span>test</span>
       <CommandBar
         items={items}
         overflowButtonProps={overflowProps}
