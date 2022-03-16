@@ -1,5 +1,5 @@
 import songDataFields from "../constants/songDataFields.json";
-import { SongData, ViewOptions } from "../features/music/MusicTypes";
+import { SongData, ViewOptions } from "../constants/MusicTypes";
 import { SortField } from "../utils/ArrayUtilities";
 
 export const useMusicData = () => {

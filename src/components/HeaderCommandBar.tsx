@@ -1,14 +1,14 @@
 import * as React from "react";
 import { CommandBar, ICommandBarItemProps, IButtonProps } from "@fluentui/react";
 import { useToasts } from "react-toast-notifications";
-import ConfirmDialog from "../../components/ConfirmDialog";
-import { saveCSVFile } from "../../utils/FileUtilities";
+import ConfirmDialog from "./ConfirmDialog";
+import { saveCSVFile } from "../utils/FileUtilities";
 import AddCSVSongsDialog from "./dialogs/AddCSVSongsDialog";
-import { SongData, ViewOptions } from "./MusicTypes";
-import songDataFields from "../../constants/songDataFields.json";
+import { SongData, ViewOptions } from "../constants/MusicTypes";
+import songDataFields from "../constants/songDataFields.json";
 import ViewOptionsDialog from "./dialogs/ViewOptionsDialog";
 import PopupModal from "./dialogs/PopupModal";
-import { useMusicData } from "../../contexts/useMusicData";
+import { useMusicData } from "../hooks/useMusicData";
 
 const overflowProps: IButtonProps = { ariaLabel: "More commands" };
 
@@ -36,6 +36,10 @@ const HeaderCommandBar = (): React.ReactElement => {
   const [testIsOpen, setTestIsOpen] = React.useState(false);
   const [file, setFile] = React.useState<File>();
   const inputRef = React.useRef<HTMLInputElement | null>(null);
+
+  React.useEffect(() => {
+    console.log({ file });
+  }, [file]);
 
   const handleFileUpload = (e: React.FormEvent<HTMLInputElement>) => {
     const { files } = e.currentTarget;

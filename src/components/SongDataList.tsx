@@ -16,13 +16,13 @@ import {
   StickyPositionType,
   TooltipHost,
 } from "@fluentui/react";
-import { getDummySongData } from "../../utils/CSVUtilities";
-import { SongData, ViewOptions } from "./MusicTypes";
-import { getColumnsFromObjectArray } from "../../utils/DetailsListUtilities";
+import { getDummySongData } from "../utils/CSVUtilities";
+import { SongData, ViewOptions } from "../constants/MusicTypes";
+import { getColumnsFromObjectArray } from "../utils/DetailsListUtilities";
 import ActiveCheckbox from "./ActiveCheckbox";
-import songDataFields from "../../constants/songDataFields.json";
-import { TypedProperty } from "../../utils/ObjectUtilities";
-import { SortField } from "../../utils/ArrayUtilities";
+import songDataFields from "../constants/songDataFields.json";
+import { TypedProperty } from "../utils/ObjectUtilities";
+import { SortField } from "../utils/ArrayUtilities";
 
 interface ISongDataListProps {
   songs: SongData[];

@@ -11,10 +11,10 @@ import {
   IDialogContentProps,
 } from "@fluentui/react";
 import SongDataList from "../SongDataList";
-import { getCSVRowsFromString, parseSongDataFromCSVRow } from "../../../utils/CSVUtilities";
-import { SongData } from "../MusicTypes";
-import songDataFields from "../../../constants/songDataFields.json";
-import { areIdenticalArrays } from "../../../utils/ArrayUtilities";
+import { getCSVRowsFromString, parseSongDataFromCSVRow } from "../../utils/CSVUtilities";
+import { SongData } from "../../constants/MusicTypes";
+import songDataFields from "../../constants/songDataFields.json";
+import { areIdenticalArrays } from "../../utils/ArrayUtilities";
 
 interface Props {
   /**

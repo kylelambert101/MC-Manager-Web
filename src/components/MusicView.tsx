@@ -2,8 +2,8 @@ import React from "react";
 import { IColumn, ProgressIndicator, ScrollablePane } from "@fluentui/react";
 import HeaderCommandBar from "./HeaderCommandBar";
 import SongDataList from "./SongDataList";
-import { SongData } from "./MusicTypes";
-import { useMusicData } from "../../contexts/useMusicData";
+import { SongData } from "../constants/MusicTypes";
+import { useMusicData } from "../hooks/useMusicData";
 
 const MusicView = () => {
   const {

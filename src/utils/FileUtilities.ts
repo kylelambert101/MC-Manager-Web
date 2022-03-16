@@ -1,5 +1,5 @@
 import fs from "fs";
-import { SongData } from "../features/music/MusicTypes";
+import { SongData } from "../constants/MusicTypes";
 import {
   parseSongDataFromCSVRow,
   isCSVHeaderValid,

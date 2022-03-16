@@ -1,7 +1,7 @@
-import * as Papa from 'papaparse';
-import songDataFields from '../constants/songDataFields.json';
-import { SongData, SongDataColumn } from '../features/music/MusicTypes';
-import { getProperties } from './ObjectUtilities';
+import * as Papa from "papaparse";
+import songDataFields from "../constants/songDataFields.json";
+import { SongData, SongDataColumn } from "../constants/MusicTypes";
+import { getProperties } from "./ObjectUtilities";
 
 export const expectedCSVColumnOrder: SongDataColumn[] = [
   songDataFields.ACTIVE,
@@ -32,10 +32,7 @@ export const getCSVRowsFromString = (csvString: string): string[][] => {
   return Papa.parse(csvString)?.data || ([] as string[][]);
 };
 
-export const parseSongDataFromCSVRow = (
-  csvRow: string[],
-  rowNum: number
-): SongData | undefined => {
+export const parseSongDataFromCSVRow = (csvRow: string[], rowNum: number): SongData | undefined => {
   // If the row doesn't have the right number of columns, don't bother parsing
   if (csvRow.length !== expectedCSVColumnOrder.length) {
     return undefined;
@@ -55,10 +52,10 @@ export const parseSongDataFromCSVRow = (
       // Parse values based on field dataType
       let cleanedValue;
       switch (targetField.dataType) {
-        case 'number':
+        case "number":
           cleanedValue = Number(value);
           break;
-        case 'boolean':
+        case "boolean":
           cleanedValue = Boolean(Number(value));
           break;
         default:
@@ -85,11 +82,11 @@ export const convertSongDataToCSVRow = (song: SongData): string => {
     // Transform the value based on field datatype
     let cleanedValue;
     switch (fieldDataType) {
-      case 'number':
+      case "number":
         // Replace "NaN" with "None" for number fields
-        cleanedValue = Number.isNaN(fieldValue) ? 'None' : fieldValue;
+        cleanedValue = Number.isNaN(fieldValue) ? "None" : fieldValue;
         break;
-      case 'boolean':
+      case "boolean":
         // Convert boolean fields back to numbers
         cleanedValue = Number(fieldValue);
         break;
@@ -115,16 +112,16 @@ export const getDummySongData = (): SongData[] => {
     {
       id: 1,
       active: true,
-      date: '2020-06-01',
-      day: '2020-06-01',
-      title: 'Item 1',
-      new_file_name: 'item_1.txt',
-      original_file_name: 'origname',
-      original_file_path: 'origpath',
-      file_extension: 'extension',
-      artist: 'artist',
-      album: 'album',
-      album_artist: 'albumartist',
+      date: "2020-06-01",
+      day: "2020-06-01",
+      title: "Item 1",
+      new_file_name: "item_1.txt",
+      original_file_name: "origname",
+      original_file_path: "origpath",
+      file_extension: "extension",
+      artist: "artist",
+      album: "album",
+      album_artist: "albumartist",
       track_number: 1,
       track_total: 10,
       duration: 100,
@@ -132,16 +129,16 @@ export const getDummySongData = (): SongData[] => {
     {
       id: 2,
       active: false,
-      date: '2020-06-02',
-      day: '2020-06-02',
-      title: 'Item 2',
-      new_file_name: 'item_2.txt',
-      original_file_name: 'origname2',
-      original_file_path: 'origpath2',
-      file_extension: 'extension2',
-      artist: 'artist2',
-      album: 'album2',
-      album_artist: 'albumartist2',
+      date: "2020-06-02",
+      day: "2020-06-02",
+      title: "Item 2",
+      new_file_name: "item_2.txt",
+      original_file_name: "origname2",
+      original_file_path: "origpath2",
+      file_extension: "extension2",
+      artist: "artist2",
+      album: "album2",
+      album_artist: "albumartist2",
       track_number: 2,
       track_total: 10,
       duration: 200,
