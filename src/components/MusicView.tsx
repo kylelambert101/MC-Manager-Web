@@ -3,13 +3,12 @@ import { IColumn, ProgressIndicator, ScrollablePane } from "@fluentui/react";
 import HeaderCommandBar from "./HeaderCommandBar";
 import SongDataList from "./SongDataList";
 import { SongData } from "../constants/MusicTypes";
-import { useMusicData } from "../hooks/useMusicData";
 import { useSongDataContext } from "../contexts/SongDataContext";
+import { useViewOptionsContext } from "../contexts/ViewOptionsContext";
 
 const MusicView = () => {
-  const { sortColumns, viewOptions, toggleAndApplySortColumn } = useMusicData();
-
   const { songs, updateSong, isLoading } = useSongDataContext();
+  const { sortColumns, viewOptions, toggleSortColumn } = useViewOptionsContext();
 
   return (
     /*
@@ -41,7 +40,7 @@ const MusicView = () => {
               }}
               onColumnClick={(ev?: React.MouseEvent<HTMLElement>, column?: IColumn) => {
                 if (typeof column !== "undefined" && typeof column.fieldName !== "undefined") {
-                  toggleAndApplySortColumn(column.fieldName);
+                  toggleSortColumn(column.fieldName);
                 }
               }}
               sortColumns={sortColumns}

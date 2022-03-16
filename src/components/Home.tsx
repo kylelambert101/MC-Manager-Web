@@ -2,6 +2,7 @@ import { initializeIcons } from "@fluentui/react";
 import React from "react";
 import { ToastProvider } from "react-toast-notifications";
 import { SongDataContextProvider } from "../contexts/SongDataContext";
+import { ViewOptionsContextProvider } from "../contexts/ViewOptionsContext";
 
 import MusicView from "./MusicView";
 
@@ -11,9 +12,11 @@ initializeIcons(/* optional base url */);
 export default function Home(): React.ReactElement {
   return (
     <ToastProvider>
-      <SongDataContextProvider>
-        <MusicView />
-      </SongDataContextProvider>
+      <ViewOptionsContextProvider>
+        <SongDataContextProvider>
+          <MusicView />
+        </SongDataContextProvider>
+      </ViewOptionsContextProvider>
     </ToastProvider>
   );
 }

@@ -1,7 +1,10 @@
 import * as React from "react";
 import { SongData } from "../constants/MusicTypes";
+import { sortObjectListByFields } from "../utils/ArrayUtilities";
 import { parseCSVFile } from "../utils/FileUtilities";
 import { isDefinedString } from "../utils/StringUtilities";
+import songDataFields from "../constants/songDataFields.json";
+import { useViewOptionsContext } from "./ViewOptionsContext";
 
 export interface SongDataContextType {
   file: File | undefined;
@@ -12,7 +15,7 @@ export interface SongDataContextType {
   saveFileData: () => void;
   cancelChanges: () => void;
   updateSong: (song: SongData) => void;
-  // TODO add functions to add/modify songs
+  addNewSongs: (newSongs: SongData[]) => void;
 }
 
 export const SongDataContext = React.createContext<SongDataContextType>({
@@ -24,6 +27,7 @@ export const SongDataContext = React.createContext<SongDataContextType>({
   saveFileData: () => null,
   cancelChanges: () => null,
   updateSong: () => null,
+  addNewSongs: () => null,
 });
 
 export const SongDataContextProvider = ({
@@ -39,6 +43,8 @@ export const SongDataContextProvider = ({
   const [cachedSongs, setCachedSongs] = React.useState<SongData[]>([]);
 
   const inputRef = React.useRef<HTMLInputElement | null>(null);
+
+  const { sortColumns } = useViewOptionsContext();
 
   React.useEffect(() => {
     async function fetchData() {
@@ -71,6 +77,18 @@ export const SongDataContextProvider = ({
     parseData();
   }, [rawCSVText]);
 
+  React.useEffect(() => {
+    setSongs(
+      (previousSongs) =>
+        sortObjectListByFields(
+          previousSongs,
+          sortColumns.length > 0
+            ? sortColumns
+            : [{ fieldName: songDataFields.ID.name, direction: "ascending" }]
+        ) as SongData[]
+    );
+  }, [sortColumns]);
+
   const handleFileUpload = (e: React.FormEvent<HTMLInputElement>) => {
     const { files } = e.currentTarget;
     if (files && files.length) {
@@ -101,13 +119,25 @@ export const SongDataContextProvider = ({
     setSongs(cachedSongs);
   }, [cachedSongs]);
 
-  const updateSong = React.useCallback(
-    (song: SongData) => {
-      setSongs(songs.map((s) => (s.new_file_name === song.new_file_name ? song : s)));
+  const updateSong = React.useCallback((song: SongData) => {
+    setSongs((prevSongs) =>
+      prevSongs.map((s) => (s.new_file_name === song.new_file_name ? song : s))
+    );
+  }, []);
+
+  const addNewSongs = React.useCallback(
+    (newSongs: SongData[]) => {
+      const minId = Math.min(0, ...songs.map((s) => s.id));
+      const toAdd = newSongs.map((song, index) => ({
+        ...song,
+        id: minId - (songs.length - index),
+      }));
+
+      // Add the new songs to state.songs and reassign ids
+      setSongs([...toAdd, ...songs]);
     },
     [songs]
   );
-
   const state = React.useMemo(
     () => ({
       file,
@@ -118,8 +148,19 @@ export const SongDataContextProvider = ({
       saveFileData,
       cancelChanges,
       updateSong,
+      addNewSongs,
     }),
-    [cancelChanges, file, isDirty, isLoading, loadFileData, saveFileData, songs, updateSong]
+    [
+      addNewSongs,
+      cancelChanges,
+      file,
+      isDirty,
+      isLoading,
+      loadFileData,
+      saveFileData,
+      songs,
+      updateSong,
+    ]
   );
 
   return (

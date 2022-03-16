@@ -7,21 +7,16 @@ import { SongData, ViewOptions } from "../constants/MusicTypes";
 import songDataFields from "../constants/songDataFields.json";
 import ViewOptionsDialog from "./dialogs/ViewOptionsDialog";
 import PopupModal from "./dialogs/PopupModal";
-import { useMusicData } from "../hooks/useMusicData";
 import { useSongDataContext } from "../contexts/SongDataContext";
+import { useViewOptionsContext } from "../contexts/ViewOptionsContext";
 
 const overflowProps: IButtonProps = { ariaLabel: "More commands" };
 
 const HeaderCommandBar = (): React.ReactElement => {
-  const {
-    sortColumns,
-    viewOptions,
-    toggleAndApplySortColumn,
-    resetSorting,
-    addNewSongs,
-    setViewOptions,
-  } = useMusicData();
-  const { songs, file, loadFileData, saveFileData, isDirty, cancelChanges } = useSongDataContext();
+  const { songs, file, loadFileData, saveFileData, isDirty, cancelChanges, addNewSongs } =
+    useSongDataContext();
+  const { sortColumns, viewOptions, toggleSortColumn, resetSorting, setViewOptions } =
+    useViewOptionsContext();
 
   const { addToast } = useToasts();
 
@@ -78,18 +73,18 @@ const HeaderCommandBar = (): React.ReactElement => {
               iconProps: { iconName: "SortLines" },
               onClick: () => {
                 resetSorting();
-                toggleAndApplySortColumn(songDataFields.NEW_FILE_NAME.name);
-                toggleAndApplySortColumn(songDataFields.DATE.name);
+                toggleSortColumn(songDataFields.NEW_FILE_NAME.name);
+                toggleSortColumn(songDataFields.DATE.name);
                 // Toggle twice so that it switches to descending
-                toggleAndApplySortColumn(songDataFields.DATE.name);
+                toggleSortColumn(songDataFields.DATE.name);
               },
             },
             {
               key: "clearSort",
               name: "Clear Sort",
-              text: "Clear Sort Rules",
+              text: "Reset Sorting",
               // This needs an ariaLabel since it's icon-only
-              ariaLabel: "Clear Sort Rules",
+              ariaLabel: "Reset Sorting",
               iconProps: { iconName: "RemoveFilter" },
               onClick: () => {
                 resetSorting();
@@ -124,8 +119,8 @@ const HeaderCommandBar = (): React.ReactElement => {
       loadFileData,
       resetSorting,
       saveFileData,
-      sortColumns.length,
-      toggleAndApplySortColumn,
+      sortColumns,
+      toggleSortColumn,
     ]
   );
 
