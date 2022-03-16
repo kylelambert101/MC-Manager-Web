@@ -20,7 +20,6 @@ const HeaderCommandBar = (): React.ReactElement => {
     viewOptions,
     cachedSongs,
     toggleAndApplySortColumn,
-    loadDataFromCSV,
     overwriteCachedSongs,
     resetSorting,
     resetSongsFromCached,
@@ -35,7 +34,19 @@ const HeaderCommandBar = (): React.ReactElement => {
   const [addSongDialogIsOpen, setAddSongDialogIsOpen] = React.useState(false);
   const [viewOptionsDialogIsOpen, setViewOptionsDialogIsOpen] = React.useState(false);
   const [testIsOpen, setTestIsOpen] = React.useState(false);
+  const [file, setFile] = React.useState<File>();
+  const inputRef = React.useRef<HTMLInputElement | null>(null);
 
+  const handleFileUpload = (e: React.FormEvent<HTMLInputElement>) => {
+    const { files } = e.currentTarget;
+    if (files && files.length) {
+      setFile(files[0]);
+    }
+  };
+
+  const onButtonClick = () => {
+    inputRef.current?.click();
+  };
   const dataHasChanged = React.useMemo(
     () => JSON.stringify(songs) !== JSON.stringify(cachedSongs),
     [songs, cachedSongs]
@@ -49,7 +60,7 @@ const HeaderCommandBar = (): React.ReactElement => {
       text: "Open CSV",
       iconProps: { iconName: "Database" },
       onClick: () => {
-        loadDataFromCSV();
+        onButtonClick();
       },
     },
 
@@ -197,6 +208,15 @@ const HeaderCommandBar = (): React.ReactElement => {
       >
         <span>Hello</span>
       </PopupModal>
+      <div>
+        <input
+          style={{ display: "none" }}
+          accept=".csv"
+          ref={inputRef}
+          onChange={handleFileUpload}
+          type="file"
+        />
+      </div>
     </div>
   );
 };

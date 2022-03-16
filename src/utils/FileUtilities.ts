@@ -1,7 +1,5 @@
-// import { remote } from 'electron';
 import fs from "fs";
 import { SongData } from "../features/music/MusicTypes";
-// import detectCharacterEncoding from 'detect-character-encoding';
 import {
   parseSongDataFromCSVRow,
   isCSVHeaderValid,
@@ -12,19 +10,6 @@ import {
 
 // Default file encoding to use for read/write
 const encoding = "utf8";
-
-export const selectFileToLoad = async (): Promise<string | undefined> => {
-  // Use remote dialog because this won't run from main thread
-  // const { filePaths } = await remote.dialog.showOpenDialog({
-  //   // For other properties see:
-  //   // https://www.electronjs.org/docs/api/dialog#dialogshowopendialogbrowserwindow-options
-  //   properties: ["openFile"],
-  // });
-
-  // return filePaths[0] || undefined;
-  // TODO add file resolution for web version
-  return undefined;
-};
 
 const getFileContents = (filePath: string): string | undefined => {
   console.log(`Opening file: "${filePath}"`);
