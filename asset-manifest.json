@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.js": "/mc-manager-web/static/js/main.b08fc8ed.chunk.js",
+    "main.js.map": "/mc-manager-web/static/js/main.b08fc8ed.chunk.js.map",
+    "runtime-main.js": "/mc-manager-web/static/js/runtime-main.bb6ffb53.js",
+    "runtime-main.js.map": "/mc-manager-web/static/js/runtime-main.bb6ffb53.js.map",
+    "static/js/2.6dbc1d02.chunk.js": "/mc-manager-web/static/js/2.6dbc1d02.chunk.js",
+    "static/js/2.6dbc1d02.chunk.js.map": "/mc-manager-web/static/js/2.6dbc1d02.chunk.js.map",
+    "static/js/3.cbb38add.chunk.js": "/mc-manager-web/static/js/3.cbb38add.chunk.js",
+    "static/js/3.cbb38add.chunk.js.map": "/mc-manager-web/static/js/3.cbb38add.chunk.js.map",
+    "index.html": "/mc-manager-web/index.html",
+    "static/js/2.6dbc1d02.chunk.js.LICENSE.txt": "/mc-manager-web/static/js/2.6dbc1d02.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.bb6ffb53.js",
+    "static/js/2.6dbc1d02.chunk.js",
+    "static/js/main.b08fc8ed.chunk.js"
+  ]
+}
