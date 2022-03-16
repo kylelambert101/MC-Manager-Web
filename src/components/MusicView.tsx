@@ -4,19 +4,12 @@ import HeaderCommandBar from "./HeaderCommandBar";
 import SongDataList from "./SongDataList";
 import { SongData } from "../constants/MusicTypes";
 import { useMusicData } from "../hooks/useMusicData";
+import { useSongDataContext } from "../contexts/SongDataContext";
 
 const MusicView = () => {
-  const {
-    isLoading,
-    // saveFilePath,
-    songs,
-    sortColumns,
-    viewOptions,
-    updateSong,
-    toggleAndApplySortColumn,
-  } = useMusicData();
+  const { sortColumns, viewOptions, toggleAndApplySortColumn } = useMusicData();
 
-  // const windowTitle = `MC-Manager${saveFilePath === "" ? "" : ` - ${saveFilePath}`}`;
+  const { songs, updateSong, isLoading } = useSongDataContext();
 
   return (
     /*

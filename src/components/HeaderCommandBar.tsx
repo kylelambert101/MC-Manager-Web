@@ -2,7 +2,6 @@ import * as React from "react";
 import { CommandBar, ICommandBarItemProps, IButtonProps } from "@fluentui/react";
 import { useToasts } from "react-toast-notifications";
 import ConfirmDialog from "./ConfirmDialog";
-import { saveCSVFile } from "../utils/FileUtilities";
 import AddCSVSongsDialog from "./dialogs/AddCSVSongsDialog";
 import { SongData, ViewOptions } from "../constants/MusicTypes";
 import songDataFields from "../constants/songDataFields.json";
@@ -15,26 +14,14 @@ const overflowProps: IButtonProps = { ariaLabel: "More commands" };
 
 const HeaderCommandBar = (): React.ReactElement => {
   const {
-    // songs,
-    saveFilePath,
     sortColumns,
     viewOptions,
-    cachedSongs,
     toggleAndApplySortColumn,
-    overwriteCachedSongs,
     resetSorting,
-    resetSongsFromCached,
     addNewSongs,
     setViewOptions,
   } = useMusicData();
-  const { songs, isLoading, triggerFileLoad } = useSongDataContext();
-
-  React.useEffect(() => {
-    console.table(songs);
-  }, [songs]);
-  React.useEffect(() => {
-    console.log({ isLoading });
-  }, [isLoading]);
+  const { songs, file, loadFileData, saveFileData, isDirty, cancelChanges } = useSongDataContext();
 
   const { addToast } = useToasts();
 
@@ -44,99 +31,103 @@ const HeaderCommandBar = (): React.ReactElement => {
   const [viewOptionsDialogIsOpen, setViewOptionsDialogIsOpen] = React.useState(false);
   const [testIsOpen, setTestIsOpen] = React.useState(false);
 
-  const dataHasChanged = React.useMemo(
-    () => JSON.stringify(songs) !== JSON.stringify(cachedSongs),
-    [songs, cachedSongs]
+  const items: ICommandBarItemProps[] = React.useMemo(
+    () => [
+      {
+        key: "upload",
+        text: "Open CSV",
+        iconProps: { iconName: "Database" },
+        onClick: loadFileData,
+      },
+
+      {
+        key: "save",
+        text: "Save CSV",
+        iconProps: { iconName: "PromotedDatabase" },
+        onClick: () => {
+          saveFileData();
+          addToast(`Successfully saved changes`, {
+            appearance: "success",
+          });
+        },
+        disabled: !isDirty,
+      },
+      {
+        key: "newItem",
+        text: "Add Songs",
+        cacheKey: "myCacheKey", // changing this key will invalidate this item's cache
+        iconProps: { iconName: "Add" }, // MusicNote is another good option
+        onClick: () => {
+          setAddSongDialogIsOpen(true);
+        },
+        disabled: file === undefined,
+      },
+      {
+        key: "sort",
+        text: "Sort",
+        iconProps: { iconName: "SortLines" },
+        onClick: (): boolean => false,
+        subMenuProps: {
+          items: [
+            {
+              key: "newestFirst",
+              name: "Newest First",
+              text: "Newest First",
+              // This needs an ariaLabel since it's icon-only
+              ariaLabel: "Newest First View",
+              iconProps: { iconName: "SortLines" },
+              onClick: () => {
+                resetSorting();
+                toggleAndApplySortColumn(songDataFields.NEW_FILE_NAME.name);
+                toggleAndApplySortColumn(songDataFields.DATE.name);
+                // Toggle twice so that it switches to descending
+                toggleAndApplySortColumn(songDataFields.DATE.name);
+              },
+            },
+            {
+              key: "clearSort",
+              name: "Clear Sort",
+              text: "Clear Sort Rules",
+              // This needs an ariaLabel since it's icon-only
+              ariaLabel: "Clear Sort Rules",
+              iconProps: { iconName: "RemoveFilter" },
+              onClick: () => {
+                resetSorting();
+              },
+              disabled: sortColumns.length === 0,
+            },
+          ],
+        },
+      },
+      {
+        key: "view",
+        text: "View Options",
+        iconProps: { iconName: "View" },
+        onClick: () => {
+          setViewOptionsDialogIsOpen(true);
+        },
+      },
+      {
+        key: "cancel",
+        text: "Cancel Changes",
+        iconProps: { iconName: "Cancel" },
+        onClick: () => {
+          setCancelDialogIsOpen(true);
+        },
+        disabled: !isDirty,
+      },
+    ],
+    [
+      addToast,
+      file,
+      isDirty,
+      loadFileData,
+      resetSorting,
+      saveFileData,
+      sortColumns.length,
+      toggleAndApplySortColumn,
+    ]
   );
-
-  const fileIsOpen = React.useMemo(() => saveFilePath !== "", [saveFilePath]);
-
-  const items: ICommandBarItemProps[] = [
-    {
-      key: "upload",
-      text: "Open CSV",
-      iconProps: { iconName: "Database" },
-      onClick: triggerFileLoad,
-    },
-
-    {
-      key: "save",
-      text: "Save CSV",
-      iconProps: { iconName: "PromotedDatabase" },
-      onClick: () => {
-        saveCSVFile(saveFilePath, songs);
-        overwriteCachedSongs();
-        addToast(`Successfully saved changes to ${saveFilePath}`, {
-          appearance: "success",
-        });
-      },
-      disabled: !dataHasChanged,
-    },
-    {
-      key: "newItem",
-      text: "Add Songs",
-      cacheKey: "myCacheKey", // changing this key will invalidate this item's cache
-      iconProps: { iconName: "Add" }, // MusicNote is another good option
-      onClick: () => {
-        setAddSongDialogIsOpen(true);
-      },
-      disabled: !fileIsOpen,
-    },
-    {
-      key: "sort",
-      text: "Sort",
-      iconProps: { iconName: "SortLines" },
-      onClick: (): boolean => false,
-      subMenuProps: {
-        items: [
-          {
-            key: "newestFirst",
-            name: "Newest First",
-            text: "Newest First",
-            // This needs an ariaLabel since it's icon-only
-            ariaLabel: "Newest First View",
-            iconProps: { iconName: "SortLines" },
-            onClick: () => {
-              resetSorting();
-              toggleAndApplySortColumn(songDataFields.NEW_FILE_NAME.name);
-              toggleAndApplySortColumn(songDataFields.DATE.name);
-              // Toggle twice so that it switches to descending
-              toggleAndApplySortColumn(songDataFields.DATE.name);
-            },
-          },
-          {
-            key: "clearSort",
-            name: "Clear Sort",
-            text: "Clear Sort Rules",
-            // This needs an ariaLabel since it's icon-only
-            ariaLabel: "Clear Sort Rules",
-            iconProps: { iconName: "RemoveFilter" },
-            onClick: () => {
-              resetSorting();
-            },
-            disabled: sortColumns.length === 0,
-          },
-        ],
-      },
-    },
-    {
-      key: "view",
-      text: "View Options",
-      iconProps: { iconName: "View" },
-      onClick: () => {
-        setViewOptionsDialogIsOpen(true);
-      },
-    },
-    {
-      key: "cancel",
-      text: "Cancel Changes",
-      iconProps: { iconName: "Cancel" },
-      onClick: () => {
-        setCancelDialogIsOpen(true);
-      },
-      disabled: !dataHasChanged,
-    },
-  ];
 
   const farItems: ICommandBarItemProps[] = [
     {
@@ -174,7 +165,7 @@ const HeaderCommandBar = (): React.ReactElement => {
         confirmAltText="Yes, discard!"
         cancelAltText="No, go back!"
         onConfirm={() => {
-          resetSongsFromCached();
+          cancelChanges();
           resetSorting();
           addToast("Changes discarded", { appearance: "info" });
         }}
