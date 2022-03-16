@@ -4,7 +4,7 @@ import { getUniqueValuesByField } from "./ArrayUtilities";
 import { convertToTitleCase } from "./StringUtilities";
 import { getProperties, TypedProperty } from "./ObjectUtilities";
 import songDataFields from "../constants/songDataFields.json";
-import { SongData, SongDataColumn } from "../features/music/MusicTypes";
+import { SongData, SongDataColumn } from "../constants/MusicTypes";
 
 /**
  * Get the display name associated with this `field`

@@ -13,8 +13,8 @@ import {
   Stack,
 } from "@fluentui/react";
 import * as React from "react";
-import { expectedCSVColumnOrder } from "../../../utils/CSVUtilities";
-import { SongDataColumn, ViewOptions } from "../MusicTypes";
+import { expectedCSVColumnOrder } from "../../utils/CSVUtilities";
+import { SongDataColumn, ViewOptions } from "../../constants/MusicTypes";
 
 interface Props {
   visible: boolean;

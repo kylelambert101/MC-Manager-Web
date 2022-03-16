@@ -4,10 +4,7 @@
  * @param field Field to query on each object
  * @param objects List from which to aggregate object values
  */
-export const getUniqueValuesByField = (
-  field: string,
-  objects: any[]
-): any[] => {
+export const getUniqueValuesByField = (field: string, objects: any[]): any[] => {
   // Get all unique values of obj.`field` in the array
   return (
     objects
@@ -15,7 +12,7 @@ export const getUniqueValuesByField = (
       .map((obj) => Reflect.get(obj, field))
       // Filter to unique, defined values
       .filter((value, index, self) => {
-        return self.indexOf(value) === index && typeof value !== 'undefined';
+        return self.indexOf(value) === index && typeof value !== "undefined";
       })
   );
 };
@@ -46,28 +43,24 @@ export const areIdenticalArrays = (
 
 export interface SortField {
   fieldName: string;
-  direction: 'ascending' | 'descending';
+  direction: "ascending" | "descending";
 }
 
 export const sortObjectListByFields = (
   objList: Record<string, unknown>[],
   sortFields: SortField[]
 ): Record<string, unknown>[] => {
-  const newList = objList;
+  const newList = [...objList];
   // Alright this isn't pretty but iteratively apply the sorts
   sortFields.forEach((field) => {
     newList.sort((a, b) => {
       if (Reflect.get(a, field.fieldName) === Reflect.get(b, field.fieldName)) {
         return 0;
       }
-      if (field.direction === 'ascending') {
-        return Reflect.get(a, field.fieldName) > Reflect.get(b, field.fieldName)
-          ? 1
-          : -1;
+      if (field.direction === "ascending") {
+        return Reflect.get(a, field.fieldName) > Reflect.get(b, field.fieldName) ? 1 : -1;
       }
-      return Reflect.get(a, field.fieldName) < Reflect.get(b, field.fieldName)
-        ? 1
-        : -1;
+      return Reflect.get(a, field.fieldName) < Reflect.get(b, field.fieldName) ? 1 : -1;
     });
   });
   return newList;
